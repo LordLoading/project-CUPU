@@ -13,4 +13,6 @@ This work is licensed under a
 | Micro Op | Function |
 | ------------- | ------------- |
 | 00100000  | Increment PC  |
-| 04000000  | Load new Instruction  |
+| 00000078  | Fetch Instruction  |
+| 04000000  | Load Instruction  |
+| 00000088  | Inbound Reg save from Register  |
