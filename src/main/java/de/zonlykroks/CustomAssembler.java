@@ -33,12 +33,12 @@ public class CustomAssembler {
                 for (int i = 2; i < parts.length; i++) {
                     String argType = parts[i].trim();
                     switch (argType) {
-                        case "Register":
-                            args.add(new ArgumentType("Register",
+                        case "reg":
+                            args.add(new ArgumentType("reg",
                                     arg -> arg.matches("reg[0-9]|1[0-5]")));
                             break;
                         case "data":
-                            args.add(new ArgumentType("Data",
+                            args.add(new ArgumentType("data",
                                     arg -> arg.matches("[0-9A-Fa-f]{2}")));
                             break;
                         default:
