@@ -1,0 +1,2 @@
+LOAD,01,Register,data,data,data,data
+ALU,04,data,Register,Register,Register
