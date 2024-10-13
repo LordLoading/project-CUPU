@@ -1,6 +1,6 @@
 nop,00
 lod,01,reg,data,data,data,data
-alui,02,data,reg,reg,data,data,data,data
+alui,02,$00,reg,reg,data,data,data,data
 intcjmpi,03,data,data,data,data,data,data
 alu,04,reg,reg,reg
 fpui,05,data,reg,reg,data,data,data,data

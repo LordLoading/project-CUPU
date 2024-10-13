@@ -30,24 +30,35 @@ public class CustomAssembler {
                 byte opcode = Byte.parseByte(parts[1].trim());
                 List<ArgumentType> args = new ArrayList<>();
 
+                int optionalPayloadData = 0;
+
                 for (int i = 2; i < parts.length; i++) {
                     String argType = parts[i].trim();
-                    switch (argType) {
-                        case "reg":
-                            args.add(new ArgumentType("reg",
-                                    arg -> arg.matches("reg[0-9]|1[0-5]")));
-                            break;
-                        case "data":
-                            args.add(new ArgumentType("data",
-                                    arg -> arg.matches("[0-9A-Fa-f]{2}")));
-                            break;
-                        default:
-                            System.err.println("Unknown argument type: " + argType);
-                            break;
+
+                    if(argType.startsWith("$")) {
+                        if(i == 2) {
+                            optionalPayloadData = Integer.parseInt(argType.substring(1),16);
+                        }else {
+                            System.err.println("Invalid optional payload data position, must be third: " + argType);
+                        }
+                    }else {
+                        switch (argType) {
+                            case "reg":
+                                args.add(new ArgumentType("reg",
+                                        arg -> arg.matches("reg[0-9]|1[0-5]")));
+                                break;
+                            case "data":
+                                args.add(new ArgumentType("data",
+                                        arg -> arg.matches("[0-9A-Fa-f]{2}")));
+                                break;
+                            default:
+                                System.err.println("Unknown argument type: " + argType);
+                                break;
+                        }
                     }
                 }
 
-                instructionSet.addInstruction(new Instruction(name, opcode, args));
+                instructionSet.addInstruction(new Instruction(name, opcode,optionalPayloadData, args));
             }
         } catch (FileNotFoundException e) {
             System.err.println("Instruction file not found: " + e.getMessage());
@@ -90,6 +101,7 @@ public class CustomAssembler {
         Instruction instruction = instructionSet.getInstruction(instructionName);
         List<Byte> bytecode = new ArrayList<>();
         bytecode.add(instruction.opcode());
+        bytecode.add((byte) instruction.optionalPayloadData());
 
         for (String arg : args) {
             if (arg.startsWith("reg")) {
