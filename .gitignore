@@ -43,3 +43,8 @@ bin/
 
 ### autosave ###
 /cpu/.CUPU.circ.autosave
+
+### zig ###
+/compiler/.zig-cache
+/compiler/zig-cache
+/compiler/zig-out
