@@ -1,0 +1,14 @@
+stack:
+
+fpPrev  <-- amax
+data
+data
+data    <-- amax - fp
+data
+data    <-- amax - fp - stackAddr
+data    
+0x00    <-- amax - fp - sp
+
+    push: inc sp, store *sp <- $reg
+    call: inc sp, store *sp <- fp, load fp <- *sp
+    return: move sp <- fp - 1, load fp <- *fp
